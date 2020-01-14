@@ -38,3 +38,8 @@ body {
 .makeDone {
   background-color: green;
 }
+
+input {
+  width: 220px;
+  margin-top: 10px;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import Task from './components/Task';
+import Input from './components/Input';
 
 class App extends React.Component {
   constructor() {
@@ -12,6 +13,22 @@ class App extends React.Component {
           {id: 2, title: 'task3', done: true}
         ]
     }
+    this.taskAdd = this.taskAdd.bind(this);
+  }
+
+  taskAdd(task) {
+    this.setState(state => {
+      let { tasks } = state,
+          id =  tasks.length !== 0 ? tasks.length : 0;
+
+      tasks.push({
+        id: id,
+        title: task,
+        done: false
+      });
+
+      return tasks;
+    })
   }
 
   taskDone(id) {
@@ -51,6 +68,9 @@ class App extends React.Component {
             taskDelete={() => this.taskDelete(task.id)}
           />
         )}
+        <Input
+          taskAdd={this.taskAdd}
+        />
       </div>
 
     )
