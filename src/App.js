@@ -110,12 +110,16 @@ class App extends React.Component {
 
   render() {
     const { tasks } = this.state;
+    let activeTasks = tasks.filter(task => !task.done),
+        doneTasks = tasks.filter(task => task.done);
 
-    this.reversSortTasks(tasks);
+    this.reversSortTasks(activeTasks);
+    this.reversSortTasks(doneTasks);
 
     return (
       <div className="todo-app">
-        {tasks.map(task =>
+        <h1>Active tasks: {activeTasks.length}</h1>
+        {[...activeTasks, ...doneTasks].map(task =>
           <Task
             task={task}
             key={task.id}

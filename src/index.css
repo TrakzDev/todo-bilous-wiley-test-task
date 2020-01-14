@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 30px;
+  padding-left: 30px;
 }
 
 .task {
@@ -40,6 +40,6 @@ body {
 }
 
 input {
-  width: 220px;
-  margin-top: 10px;
+  width: 203px;
+  margin: 10px 10px 0 0;
 }
