@@ -5,9 +5,36 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 30px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.task {
+  width: 250px;
+  padding: 5px;
+}
+
+.task.done {
+  background-color: grey;
+}
+
+.taskTitle {
+  display: inline-block;
+  margin: 0;
+}
+
+.task div {
+  float: right;
+  margin-left: 5px;
+}
+
+.remove, .makeDone {
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin: 0;
+}
+
+.makeDone {
+  background-color: green;
 }
