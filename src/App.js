@@ -7,25 +7,62 @@ class App extends React.Component {
     super();
 
     this.state = {
-      tasks: [
-          {id: 0, title: 'task1', done: false},
-          {id: 1, title: 'task2', done: false},
-          {id: 2, title: 'task3', done: true}
-        ]
+      tasks: []
     }
     this.taskAdd = this.taskAdd.bind(this);
+  }
+
+  componentDidMount() {
+    let oldTasks = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+      let oldTask = JSON.parse(localStorage.getItem(localStorage.key(i))),
+          addableTask = {
+            id: i,
+            title: oldTask.title,
+            done: oldTask.done
+          };
+
+      oldTasks.push(addableTask);
+
+      this.setState(state => {
+        let { tasks } = state;
+        tasks.push(addableTask);
+        return tasks;
+      })
+    }
+
+    localStorage.clear();
+
+    for (let i = 0; i < oldTasks.length; i++) {
+      localStorage.setItem(i, JSON.stringify(oldTasks[i]))
+    }
+
+    if (oldTasks.length === 0) {
+      this.setState(state => {
+        let { tasks } = state;
+        tasks.push({
+          id: 0,
+          title: 'Add your first task below :)',
+          done: true
+        });
+        return tasks;
+      })
+    }
   }
 
   taskAdd(task) {
     this.setState(state => {
       let { tasks } = state,
-          id =  tasks.length !== 0 ? tasks.length : 0;
+          id =  tasks.length !== 0 ? tasks.length : 0,
+          newTask = {
+            id: id,
+            title: task,
+            done: false
+          }
 
-      tasks.push({
-        id: id,
-        title: task,
-        done: false
-      });
+      tasks.push(newTask);
+      localStorage.setItem(id, JSON.stringify(newTask));
 
       return tasks;
     })
@@ -38,6 +75,7 @@ class App extends React.Component {
       let { tasks } = state;
 
       tasks[index].done = true;
+      localStorage.setItem(index, JSON.stringify(tasks[index]));
 
       return tasks;
     })
@@ -50,13 +88,30 @@ class App extends React.Component {
       let { tasks } = state;
 
       delete tasks[index];
+      localStorage.removeItem(index)
 
       return tasks;
     })
   }
 
+  reversSortTasks(tasks) {
+    tasks.sort(function(title1, title2){
+      let titleA = title1.title.toLowerCase(), titleB = title2.title.toLowerCase();
+
+      if (titleA < titleB)
+        return 1
+      if (titleA > titleB)
+        return -1
+      return 0
+    })
+
+    return tasks;
+  }
+
   render() {
     const { tasks } = this.state;
+
+    this.reversSortTasks(tasks);
 
     return (
       <div className="todo-app">
