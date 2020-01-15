@@ -22,7 +22,7 @@ body {
   margin: 0;
 }
 
-.task div {
+.task div, .editorBtn {
   float: right;
   margin-left: 5px;
 }
@@ -40,6 +40,6 @@ body {
 }
 
 input {
-  width: 203px;
+  width: 208px;
   margin: 10px 10px 0 0;
 }

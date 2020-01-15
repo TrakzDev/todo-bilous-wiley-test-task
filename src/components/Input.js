@@ -4,12 +4,15 @@ class TaskInput extends React.Component {
   constructor(props) {
     super(props);
 
+    let inputVal = props.value ? props.value : ''
+
     this.state = {
-      input: ''
+      input: inputVal,
+      startInput: inputVal
     }
   }
 
-  addTask = () => {
+  taskAdd = () => {
     const { input } = this.state;
 
     if ( input ) {
@@ -18,27 +21,53 @@ class TaskInput extends React.Component {
     }
   }
 
+  taskChange = () => {
+    const { input, startInput } = this.state;
+
+    if ( input && input !== startInput ) {
+      this.props.taskChange(input);
+      this.setState({input: ''})
+    } else {
+      this.props.hideChangeInput();
+    }
+  }
+
   changeInput = event => {
     this.setState({input: event.target.value})
   }
 
-  pressedEnter = event => {
+  pressedAddEnter = event => {
     if (event.key === 'Enter') {
-      this.addTask();
+      this.taskAdd();
+    }
+  }
+
+  pressedChangeEnter = event => {
+    if (event.key === 'Enter') {
+      this.taskChange();
     }
   }
 
   render() {
     const { input } = this.state;
+    let actionBtn, onKeyPressFunc;
+
+    if (this.props.usage === 'taskAdd') {
+      actionBtn = <button onClick={this.taskAdd}>add</button>;
+      onKeyPressFunc = this.pressedAddEnter;
+    } else {
+      actionBtn = <button onClick={this.taskChange}>edit</button>;
+      onKeyPressFunc = this.pressedChangeEnter;
+    }
 
     return (
       <div>
         <input
           onChange={this.changeInput}
-          onKeyPress={this.pressedEnter}
+          onKeyPress={onKeyPressFunc}
           value={input}
         />
-        <button onClick={this.addTask}>add</button>
+        {actionBtn}
       </div>
     )
   }

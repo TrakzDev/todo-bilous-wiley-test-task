@@ -13,12 +13,24 @@ const Task = ({task, ...props}) => {
     </div>
   );
 
+  const EditorBtn = () => (
+    <div>
+      { !task.done
+        ?
+        <button className="editorBtn" onClick={props.taskStartEdit}>edit</button>
+        :
+        ''
+      }
+    </div>
+  );
+
   const className = 'task' + (task.done ? ' done' : '');
 
   return (
     <div className={className}>
       <p className="taskTitle">{task.title}</p>
       <ActionBtn/>
+      <EditorBtn/>
     </div>
   )
 }
