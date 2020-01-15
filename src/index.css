@@ -8,6 +8,14 @@ body {
   padding-left: 30px;
 }
 
+.mainBlock, .readMe {
+  float: left;
+}
+
+.readMe {
+  margin: 30px 0 0 110px; 
+}
+
 .task {
   width: 250px;
   padding: 5px;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Task from './components/Task';
 import Input from './components/Input';
+import ReadMe from './ReadMe';
 
 class App extends React.Component {
   constructor() {
@@ -157,21 +158,24 @@ class App extends React.Component {
 
     return (
       <div className="todo-app">
-        <h1>Active tasks: {activeTasks.length}</h1>
-        {[...activeTasks, ...doneTasks].map(task =>
-          <Task
-            task={task}
-            key={task.id}
-            taskDone={() => this.taskDone(task.id)}
-            taskDelete={() => this.taskDelete(task.id)}
-            taskStartEdit={() => this.taskStartEdit(task.id)}
+        <div className='mainBlock'>
+          <h1>Active tasks: {activeTasks.length}</h1>
+          {[...activeTasks, ...doneTasks].map(task =>
+            <Task
+              task={task}
+              key={task.id}
+              taskDone={() => this.taskDone(task.id)}
+              taskDelete={() => this.taskDelete(task.id)}
+              taskStartEdit={() => this.taskStartEdit(task.id)}
+            />
+          )}
+          <Input
+            usage={'taskAdd'}
+            taskAdd={this.taskAdd}
           />
-        )}
-        <Input
-          usage={'taskAdd'}
-          taskAdd={this.taskAdd}
-        />
-        {editorInput}
+          {editorInput}
+        </div>
+        <ReadMe/>
       </div>
     )
   }
